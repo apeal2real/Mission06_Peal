@@ -10,8 +10,8 @@ using Mission_6Peal.Models;
 namespace Mission_6Peal.Migrations
 {
     [DbContext(typeof(MoviesContext))]
-    [Migration("20240217042212_Initial4")]
-    partial class Initial4
+    [Migration("20240220024010_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

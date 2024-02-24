@@ -1,0 +1,77 @@
+﻿@*
+    This Razor view displays a table of movies.
+    It lists various details about each movie such as category, title, year, etc.
+    It also provides options to edit or delete each movie.
+*@
+@model List<Movies>
+<table class="table table-bordered">
+    <thead class="fw-bold">
+        <!-- Table header row -->
+        <tr>
+            <td>Category</td> <!-- Column for movie category -->
+            <td>Title</td> <!-- Column for movie title -->
+            <td>Year</td> <!-- Column for movie year -->
+            <td>Director</td> <!-- Column for movie director -->
+            <td>Rating</td> <!-- Column for movie rating -->
+            <td>Edited</td> <!-- Column for indicating whether the movie has been edited -->
+            <td>LentTo</td> <!-- Column for indicating to whom the movie is lent -->
+            <td>CopiedToPlex</td> <!-- Column for indicating whether the movie has been copied to Plex -->
+            <td>Notes</td> <!-- Column for additional notes about the movie -->
+            <td>Edit</td> <!-- Column for edit button -->
+            <td>Delete</td> <!-- Column for delete button -->
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Iterate over each movie in the model -->
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>
+                    <!-- Display the category of the movie -->
+                    @foreach (Categories c in ViewBag.Categories)
+                    {
+                        @if (c.CategoryId == x.CategoryId)
+                        {
+                            @c.Category
+                        }
+                    }
+                </td>
+                <td>@x.Title</td> <!-- Display the title of the movie -->
+                <td>@x.Year</td> <!-- Display the year of the movie -->
+                <td>@x.Director</td> <!-- Display the director of the movie -->
+                <td>@x.Rating</td> <!-- Display the rating of the movie -->
+                <td>
+                    <!-- Display whether the movie has been edited -->
+                    @if (x.Edited == 1)
+                    {
+                        @("Yes")
+                    }
+                    else
+                    {
+                        @("No")
+                    }
+                </td>
+                <td>@x.LentTo</td> <!-- Display to whom the movie is lent -->
+                <td>
+                    <!-- Display whether the movie has been copied to Plex -->
+                    @if (x.CopiedToPlex == 1)
+                    {
+                        @("Yes")
+                    }
+                    else
+                    {
+                        @("No")
+                    }
+                </td>
+                <td>@x.Notes</td> <!-- Display additional notes about the movie -->
+                <!-- Button to edit the movie -->
+                <td><a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@x.MovieId">Edit</a></td>
+
+                <!-- Button to delete the movie -->
+                <td><a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@x.MovieId">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

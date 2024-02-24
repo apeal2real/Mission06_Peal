@@ -1,0 +1,19 @@
+﻿@*
+    This Razor view is used to confirm the deletion of a movie.
+    It displays the title of the movie to be deleted and provides options to confirm or cancel the deletion.
+*@
+@model Movies
+
+<h2>Confirm Deletion</h2>
+<h3>@Model.Title</h3> <!-- Display the title of the movie to be deleted -->
+
+<form method="post">
+    <!-- Hidden field to send the MovieId along with the form submission -->
+    <input type="hidden" asp-for="MovieId" />
+
+    <!-- Button to confirm deletion -->
+    <button type="submit">Delete</button>
+
+    <!-- Link to cancel the deletion and return to the list of movies -->
+    <a class="btn btn-info" asp-controller="Home" asp-action="ShowMovies">Cancel</a>
+</form>

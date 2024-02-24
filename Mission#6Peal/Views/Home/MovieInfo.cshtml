@@ -1,20 +1,35 @@
-﻿@model Movies 
+﻿@model Movies
 
 <h1>Add Movie to Collection</h1>
-<br/>
-<form method="post">
-    <label asp-for="Category">Category:</label><br>
-    <input asp-for="Category" type="text" id="category" name="category" required><br><br>
+<br />
 
+<form method="post">
+
+    <!-- Hidden field to send the MovieId along with the form submission -->
+    <input type="hidden" asp-for="MovieId" />
+
+    <!-- Dropdown for selecting movie category -->
+    <label asp-for="CategoryId">Category:</label><br>
+    <select asp-for="CategoryId" id="CategoryId" name="CategoryId" required>
+        @foreach (Categories c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryId">@c.Category</option>
+        }
+    </select><br><br>
+
+    <!-- Text input for entering movie title -->
     <label asp-for="Title">Title:</label><br>
     <input asp-for="Title" type="text" id="title" name="title" required><br><br>
 
+    <!-- Text input for entering movie year -->
     <label asp-for="Year">Year:</label><br>
     <input asp-for="Year" type="number" id="year" name="year" required><br><br>
 
+    <!-- Text input for entering movie director -->
     <label asp-for="Director">Director:</label><br>
     <input asp-for="Director" type="text" id="director" name="director" required><br><br>
 
+    <!-- Dropdown for selecting movie rating -->
     <label asp-for="Rating">Rating:</label><br>
     <select asp-for="Rating" id="rating" name="rating" required>
         <option value="G">G</option>
@@ -23,17 +38,24 @@
         <option value="R">R</option>
     </select><br><br>
 
+    <!-- Dropdown for indicating whether the movie has been edited -->
     <label asp-for="Edited">Edited:</label><br>
     <select asp-for="Edited" id="edited" name="edited" required>
-        <option value="true">Yes</option>
-        <option value="false">No</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
     </select><br><br>
 
+    <!-- Text input for indicating to whom the movie is lent (optional) -->
     <label asp-for="LentTo">Lent To:</label><br>
-    <input asp-for="LentTo" type="text" id="lent_to" name="lent_to"><br><br>
+    <input asp-for="LentTo" type="text" id="LentTo" name="LentTo"><br><br>
 
+    <!-- Text input for entering any additional notes about the movie (optional) -->
     <label asp-for="Notes">Notes:</label><br>
     <input asp-for="Notes" type="text" id="notes" name="notes" maxlength="25"><br><br>
 
+    <!-- Submit button to submit the form -->
     <input type="submit" value="Submit">
+
+    <!-- Display validation errors if any -->
+    <div asp-validation-summary="All"></div>
 </form>
